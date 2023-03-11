@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>JS Drum Kit</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="https://fav.farm/✅" />
 </head>
+
 <body>
 
 
@@ -58,27 +60,38 @@
   <audio data-key="75" src="sounds/tom.wav"></audio>
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
-<script>
-  function removeTransition(e) {
-    if (e.propertyName !== 'transform') return;
-    e.target.classList.remove('playing');
-  }
-
-  function playSound(e) {
-    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
-    const key = document.querySelector(`div[data-key="${e.keyCode}"]`);
-    if (!audio) return;
-
-    key.classList.add('playing');
-    audio.currentTime = 0;
-    audio.play();
-  }
-
-  const keys = Array.from(document.querySelectorAll('.key'));
-  keys.forEach(key => key.addEventListener('transitionend', removeTransition));
-  window.addEventListener('keydown', playSound);
-</script>
+  <script>
+    // When a key is pressed, the function playSound is called
+    window.addEventListener('keydown', playSound)
+    // The function playSound receives the event as an argument
+    function playSound(e) {
+      // Declare a variable that holds the audio element with the data-key attribute
+      // equal to the event code key
+      const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`)
+      // Declare a variable that holds the div element with the data-key attribute
+      // equal to the event code key
+      const key = document.querySelector(`div[data-key="${e.keyCode}"]`)
+      // If the audio element is not found, exit the function
+      if (!audio) return
+      // Add the class playing to the div element
+      key.classList.add('playing')
+      // Set the current time of the audio element to 0
+      audio.currentTime = 0
+      // Play the audio element
+      audio.play()
+    }
+    // When a transition ends, the function removeTransition is called
+    keys.forEach(key => key.addEventListener('transitionend', removeTransition))
+    // The function removeTransition receives the event as an argument
+    function removeTransition(e) {
+      // If the event property name is not transform, exit the function
+      if (e.propertyName !== 'transform') return
+      // Remove the class playing from the element
+      e.target.classList.remove('playing')
+    }
+  </script>
 
 
 </body>
+
 </html>
